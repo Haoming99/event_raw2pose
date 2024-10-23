@@ -1,5 +1,4 @@
 import sys
-print(sys.path)
 sys.path.append('./build')
 from apriltag import apriltag
 import cv2
@@ -13,14 +12,25 @@ import numpy as np
 from apriltag import apriltag
 import pdb
 import json
+import argparse
 
 # Add the path where apriltag is located
 sys.path.append('./build')
 
-# Path to the folder containing the images
-specific_task = 'fixedNratio035'
-image_folder = '/home/ziyan/02_research/eventReconstruction/rpg_e2vid/output_folder/reconstruction/' + specific_task
-output_folder = 'output_folder/' + specific_task
+# Set up argument parsing
+parser = argparse.ArgumentParser(description='Process images for AprilTag detection.')
+parser.add_argument('--task', type=str, required=True, help='Specific task name (e.g., fixedNratio035)')
+parser.add_argument('--input_folder', type=str, required=True, help='Destination to get input images')
+parser.add_argument('--output_folder', type=str, required=True, help='Destination to store result images and jsons')
+parser.add_argument('--store_images', action='store_true', help='Flag to store processed images')
+parser.add_argument('--store_jsons', action='store_true', help='Flag to store processed jsons')
+
+args = parser.parse_args()
+
+# Use the task argument
+specific_task = args.task
+image_folder = args.intput_folder + specific_task
+output_folder = args.output_folder + specific_task
 os.makedirs(output_folder, exist_ok=True)
 # Initialize the AprilTag detector
 detector = apriltag("tagStandard41h12")
@@ -49,7 +59,7 @@ for filename in os.listdir(image_folder):
         # Prepare to store detection results in a dictionary
         detection_results = {"detections": []}
         
-        if (0): # draw detections on image
+        if args.store_images:   # draw detections on image and store
             # Loop over the detections and draw the bounding box and tag ID
             for detection in detections:
                 # Get the corners of the detected tag
@@ -67,7 +77,7 @@ for filename in os.listdir(image_folder):
             output_path = os.path.join(output_folder, 'output_' + filename)
             cv2.imwrite(output_path, gray)
 
-        if (0):
+        if args.store_jsons:
             for detection in detections:        
                 # Append detection information to the dictionary
                 center = [x.item() for x in np.rint(detection['center']).astype(int)]
