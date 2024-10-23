@@ -9,6 +9,16 @@
 [AprilTag 3] (https://github.com/AprilRobotics/apriltag)
 
 
+
+
+## Steps
+
+Once we get the h5 file converted from RAW. We should convert it to TXT so that the input format meet the requirement of E2VID:
+```bash
+python convert_h5_to_txt.py --input_h5_file your_ht_file --output_file output_file.txt
+```
+
+
 For Image reconstruction from events, we need to prepare the conda environment first:
 ```bash
 conda create -n E2VID
