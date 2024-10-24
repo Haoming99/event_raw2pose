@@ -17,6 +17,7 @@ bash raw2pose.sh
 
 ## Steps
 Alternatively, you can run the pipeline step by step. 
+
 First, convert the RAW file to the h5 file using e2calib.
 ```bash
 python3 convert.py april_tags.raw
