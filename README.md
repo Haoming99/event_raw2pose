@@ -8,10 +8,16 @@
 
 [AprilTag 3] (https://github.com/AprilRobotics/apriltag)
 
-
-
+## Run the complete raw-to-camera_pose pipeline using one command
+```bash
+bash raw2pose.sh
+```
 
 ## Steps
+First, convert the RAW file to the h5 file using e2calib.
+```bash
+python3 convert.py april_tags.raw
+```
 
 Once we get the h5 file converted from RAW. We should convert it to TXT so that the input format meet the requirement of E2VID:
 ```bash
@@ -41,5 +47,9 @@ cmake --build build --target install
 Then run apriltagDetector.py in apriltag folder
 ```bash
 python apriltagDetector.py --input_folder reconstructed_images_folder  --output_folder destination_for_results --store_images --store_jsons
+```
+At last, do PnP to the json files to print out the poses by 
+```bash
+python3 run_pnp.py
 ```
 
