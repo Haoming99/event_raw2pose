@@ -8,6 +8,8 @@
 
 [AprilTag 3] (https://github.com/AprilRobotics/apriltag)
 
+[E2Calib: How to Calibrate Your Event Camera] (https://github.com/uzh-rpg/e2calib)
+
 ## Run the complete raw-to-camera_pose pipeline using one command
 ```bash
 bash raw2pose.sh
