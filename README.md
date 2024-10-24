@@ -17,8 +17,16 @@ bash raw2pose.sh
 
 ## Steps
 Alternatively, you can run the pipeline step by step. 
+We need to prepare the conda environment first:
+```bash
+conda create -n E2VID
+conda activate E2VID
+conda install pytorch torchvision cudatoolkit=10.0 -c pytorch
+conda install pandas
+conda install -c conda-forge opencv
+```
 
-First, convert the RAW file to the h5 file using e2calib.
+Convert the RAW file to the h5 file using e2calib in the local environment (without conda).
 ```bash
 python3 convert.py april_tags.raw
 ```
@@ -28,15 +36,6 @@ Once we get the h5 file converted from RAW. We should convert it to TXT so that 
 python convert_h5_to_txt.py --input_h5_file your_ht_file --output_file output_file.txt
 ```
 
-
-For Image reconstruction from events, we need to prepare the conda environment first:
-```bash
-conda create -n E2VID
-conda activate E2VID
-conda install pytorch torchvision cudatoolkit=10.0 -c pytorch
-conda install pandas
-conda install -c conda-forge opencv
-```
 
 In the Conda environment E2VID, type the following command to reconstruct images in specific fps. -T represents the window period in ms.  
 ```bash
@@ -54,6 +53,6 @@ python apriltagDetector.py --input_folder reconstructed_images_folder  --output_
 ```
 At last, do PnP to the json files to print out the poses by 
 ```bash
-python3 run_pnp.py
+python run_pnp.py
 ```
 
