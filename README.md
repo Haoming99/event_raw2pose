@@ -17,6 +17,7 @@ bash raw2pose.sh
 
 ## Steps
 Alternatively, you can run the pipeline step by step. 
+
 We need to prepare the conda environment first:
 ```bash
 conda create -n E2VID
